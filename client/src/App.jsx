@@ -13,8 +13,13 @@ import ShoppingHome from "./pages/shopping-view/home";
 import ShoppingListing from "./pages/shopping-view/listing";
 import ShoppingCheckout from "./pages/shopping-view/checkout";
 import ShoppingAccount from "./pages/shopping-view/account";
+import { useSelector } from "react-redux";
 
 function App() {
+
+  const { user, isAuthenticated, isLoading } = useSelector(
+    (state) => state.auth
+  );
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
