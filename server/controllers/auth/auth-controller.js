@@ -57,14 +57,25 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        return res.status(200).json({
-            success: true,
-            message: 'Login successful.',
-            token,
-        });
-    } catch (error) {
-        console.error(error);
+        const token = jwt.sign(
+            { id: user._id, role: user.role, email: user.email },
+            'CLIENT_SECRET_KEY',
+            { expiresIn: '1h' }
+        );
+
+        return res
+            .cookie('token', token, { httpOnly: true, secure: false })
+            .json({
+                success: true,
+                message: 'Logged in successfully',
+                user: {
+                    email: user.email,
+                    role: user.role,
+                    id: user._id,
+                },
+            });
+    } catch (e) {
+        console.error(e);
         return res.status(500).json({
             success: false,
             message: 'An error occurred during login.',
@@ -72,4 +83,4 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser,loginUser};
+module.exports = { registerUser, loginUser };
