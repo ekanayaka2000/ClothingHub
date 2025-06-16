@@ -2,11 +2,7 @@
 
 
 function UserCartItemsContent(){
-    return (
-        <div>
-            UserCartItemsContent
-        </div>
-    );
+    return <div>UserCartItemsContent</div>
 }
 
 export default UserCartItemsContent;

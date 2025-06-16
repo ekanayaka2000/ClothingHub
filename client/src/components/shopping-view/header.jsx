@@ -4,13 +4,19 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { shoppingViewHeaderMenuItems } from "@/config";
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
-import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { Avatar } from "@radix-ui/react-avatar";
-import { AvatarFallback } from "../ui/avatar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutUser } from "@/store/auth-slice";
-import { useState } from "react";
 import UserCartWrapper from "./cart-wrapper";
+import { useEffect, useState } from "react";
+import { fetchCartItems } from "@/store/shop/cart-slice";
 
 
 
@@ -34,6 +40,7 @@ function MenuItems() {
 function HeaderRightContent() {
 
     const { user } = useSelector((state) => state.auth);
+    const { cartItems } = useSelector((state) => state.shopCart);
     const [openCartSheet, setOpenCartSheet] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -42,14 +49,31 @@ function HeaderRightContent() {
         dispatch(logoutUser());
     }
 
+    useEffect(() => {
+        dispatch(fetchCartItems(user?.id));
+    }, [dispatch]);
+
+    console.log(cartItems, "Madhuranga");
+
     return (
         <div className="flex lg:items-center lg:flex-row flex-col gap-4">
-            <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)} >
-                <Button onClick={() => setOpenCartSheet(true)} variant="outline" size="icon">
+            <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+                <Button
+                    onClick={() => setOpenCartSheet(true)}
+                    variant="outline"
+                    size="icon"
+                    className="relative"
+                >
                     <ShoppingCart className="w-6 h-6" />
                     <span className="sr-only">User cart</span>
                 </Button>
-                <UserCartWrapper />
+                <UserCartWrapper
+                    cartItems={
+                        cartItems && cartItems.items && cartItems.items.length > 0
+                            ? cartItems.items
+                            : []
+                    }
+                />
             </Sheet>
 
             <DropdownMenu>
