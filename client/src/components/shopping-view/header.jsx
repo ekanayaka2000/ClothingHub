@@ -9,6 +9,8 @@ import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuS
 import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "../ui/avatar";
 import { logoutUser } from "@/store/auth-slice";
+import { useState } from "react";
+import UserCartWrapper from "./cart-wrapper";
 
 
 
@@ -32,6 +34,7 @@ function MenuItems() {
 function HeaderRightContent() {
 
     const { user } = useSelector((state) => state.auth);
+    const [openCartSheet, setOpenCartSheet] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -41,11 +44,12 @@ function HeaderRightContent() {
 
     return (
         <div className="flex lg:items-center lg:flex-row flex-col gap-4">
-            <Sheet>
-                <Button variant="outline" size="icon">
+            <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)} >
+                <Button onClick={() => setOpenCartSheet(true)} variant="outline" size="icon">
                     <ShoppingCart className="w-6 h-6" />
                     <span className="sr-only">User cart</span>
                 </Button>
+                <UserCartWrapper />
             </Sheet>
 
             <DropdownMenu>

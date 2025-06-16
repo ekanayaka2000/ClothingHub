@@ -23,13 +23,14 @@ export const addToCart = createAsyncThunk(
 );
 
 export const fetchCartItems = createAsyncThunk(
-    "cart/fetchCartItems", async ({ userId }) => {
-        const response = await axios.get(
-            `http://localhost:5000/api/shop/cart/get/${userId}`,
-        );
+  "cart/fetchCartItems",
+  async (userId) => {
+    const response = await axios.get(
+      `http://localhost:5000/api/shop/cart/get/${userId}`
+    );
 
-        return response.data;
-    }
+    return response.data;
+  }
 );
 
 export const deleteCartItem = createAsyncThunk(

@@ -2,8 +2,11 @@ import ProductFilter from "@/components/shopping-view/filter";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import ShoppingProductTile from "@/components/shopping-view/product-tile";
 import { Button } from "@/components/ui/button";
-import { DropdownMenuTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenuTrigger,
+     DropdownMenu,
+      DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
+import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import { fetchAllFilteredProducts, fetchProductDetails } from "@/store/shop/products-slice";
 import { ArrowUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -30,6 +33,9 @@ function createSearchParamsHelper(filterParams) {
 function ShoppingListing() {
     const dispatch = useDispatch();
     const { productList, productDetails } = useSelector((state) => state.shopProducts);
+    const { user } = useSelector((state) => state.auth);
+    const {cartItems} = useSelector((state) => state.shopCart);
+
     const [filters, setFilters] = useState({});
     const [sort, setSort] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -66,6 +72,19 @@ function ShoppingListing() {
 
     }
 
+    function handleAddToCart(getCurrentProductid) {
+        dispatch(addToCart({
+            userId: user?.id,
+            productId: getCurrentProductid,
+            quantity: 1,
+        })
+        ).then((data) => {
+            if(data?.payload?.success){
+                dispatch(fetchCartItems(user?.id));
+            }
+        });
+    }
+
     useEffect(() => {
         setSort("price-lowtohigh");
         setFilters(JSON.parse(sessionStorage.getItem('filters')) || {})
@@ -83,11 +102,12 @@ function ShoppingListing() {
             dispatch(fetchAllFilteredProducts({ filterParams: filters, sortParams: sort }));
     }, [dispatch, sort, filters]);
 
-    useEffect(()=> {
-        if(productDetails !== null) setOpenDetailsDialog(true);
-    },[productDetails]);
+    useEffect(() => {
+        if (productDetails !== null) setOpenDetailsDialog(true);
+    }, [productDetails]);
 
-    console.log(productDetails, "productDetails");
+    console.log(cartItems,"cartItemscartItems");
+    
 
     return <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">
         <ProductFilter filters={filters} handleFilter={handleFilter} />
@@ -135,13 +155,15 @@ function ShoppingListing() {
                             <ShoppingProductTile
                                 handleGetProductDetails={handleGetProductDetails}
                                 product={productItem}
+                                handleAddToCart={handleAddToCart}
+
                             />
                         )
                         : null
                 }
             </div>
         </div>
-        <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails}/>
+        <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails} />
     </div>;
 }
 
