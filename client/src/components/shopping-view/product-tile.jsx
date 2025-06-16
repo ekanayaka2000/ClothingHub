@@ -7,7 +7,9 @@ import { Badge } from "../ui/badge";
 
 
 function ShoppingProductTile({
-    product, handleGetProductDetails, handleAddToCart,
+    product, 
+    handleGetProductDetails, 
+    handleAddToCart,
 }) {
     return (
         <Card className="w-full max-w-sm mx-auto">

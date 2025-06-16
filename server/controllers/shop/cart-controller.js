@@ -1,5 +1,5 @@
-const Cart = require ("../../models/Cart");
-const Product = require ("../../models/Product");
+const Cart = require("../../models/Cart");
+const Product = require("../../models/Product");
 
 const addToCart = async (req, res) => {
   try {
@@ -42,7 +42,6 @@ const addToCart = async (req, res) => {
       success: true,
       data: cart,
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -54,7 +53,6 @@ const addToCart = async (req, res) => {
 
 const fetchCartItems = async (req, res) => {
   try {
-
     const { userId } = req.params;
 
     if (!userId) {
@@ -101,7 +99,6 @@ const fetchCartItems = async (req, res) => {
         items: populateCartItems,
       },
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -113,7 +110,6 @@ const fetchCartItems = async (req, res) => {
 
 const updateCartItemQty = async (req, res) => {
   try {
-
     const { userId, productId, quantity } = req.body;
 
     if (!userId || !productId || quantity <= 0) {
@@ -152,10 +148,10 @@ const updateCartItemQty = async (req, res) => {
 
     const populateCartItems = cart.items.map((item) => ({
       productId: item.productId ? item.productId._id : null,
-      image: item.image ? item.productId.image : null,
-      title: item.title ? item.productId.title : "Product not found",
-      price: item.price ? item.productId.price : null,
-      salePrice: item.salePrice ? item.productId.salePrice : null,
+      image: item.productId ? item.productId.image : null,
+      title: item.productId ? item.productId.title : "Product not found",
+      price: item.productId ? item.productId.price : null,
+      salePrice: item.productId ? item.productId.salePrice : null,
       quantity: item.quantity,
     }));
 
@@ -166,7 +162,6 @@ const updateCartItemQty = async (req, res) => {
         items: populateCartItems,
       },
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -178,7 +173,6 @@ const updateCartItemQty = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
   try {
-
     const { userId, productId } = req.params;
     if (!userId || !productId) {
       return res.status(400).json({
@@ -226,7 +220,6 @@ const deleteCartItem = async (req, res) => {
         items: populateCartItems,
       },
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
