@@ -28,6 +28,15 @@ function Address() {
     function handleManageAddress(event) {
         event.preventDefault();
 
+        if (addressList.length >= 3 && currentEditedId === null) {
+            setFormData(initialAddressFormData);
+            toast({
+                title: "You can add only 3 addresses",
+                variant: "destructive",
+            });
+
+            return;
+        }
 
         currentEditedId !== null
             ? dispatch(
@@ -54,6 +63,9 @@ function Address() {
                 if (data?.payload?.success) {
                     dispatch(fetchAllAddresses(user?.id));
                     setFormData(initialAddressFormData);
+                    toast({
+                        title: "Address updated successfully",
+                    });
                 }
             });
     }
