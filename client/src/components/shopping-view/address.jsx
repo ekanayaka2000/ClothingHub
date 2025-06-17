@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { addressFormControls } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewAddress, fetchAllAddresses } from "@/store/shop/address-slice";
+import AddressCard from "./address-card";
 
 
 
@@ -11,7 +12,7 @@ const initialAddressFormData = {
     address: "",
     city: "",
     phone: "",
-    pincode: "",
+    postalcode: "",
     notes: "",
 };
 
@@ -52,8 +53,15 @@ function Address() {
 
     return (
         <Card>
-            <div className="mb-5 p-3 grid grid-cols-1 sm:grid-cols-2  gap-2">
-
+            <div className="mb-5 p-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                {
+                    addressList && addressList.length > 0 ?
+                        addressList.map((singleAddressItem) =>
+                        (
+                            <AddressCard addressInfo={singleAddressItem}
+                            />
+                        )) : null
+                }
             </div>
             <CardHeader>
                 <CardTitle>
