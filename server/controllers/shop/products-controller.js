@@ -56,7 +56,6 @@ const getFilteredProducts = async (req, res) => {
     }
 };
 
-
 const getProductDetails = async (req, res) => {
   try {
     const { id } = req.params;
@@ -80,7 +79,5 @@ const getProductDetails = async (req, res) => {
     });
   }
 };
-
-
 
 module.exports = { getFilteredProducts , getProductDetails };

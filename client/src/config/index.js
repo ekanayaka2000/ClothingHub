@@ -202,11 +202,11 @@ export const addressFormControls = [
     placeholder: "Enter your city",
   },
   {
-    label: "Pincode",
-    name: "pincode",
+    label: "Postalcode",
+    name: "postalcode",
     componentType: "input",
     type: "text",
-    placeholder: "Enter your pincode",
+    placeholder: "Enter your postalcode",
   },
   {
     label: "Phone",

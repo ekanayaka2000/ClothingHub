@@ -23,7 +23,7 @@ function ShoppingOrderDetailsView({ orderDetails }) {
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Price</p>
-            <Label>${orderDetails?.totalAmount}</Label>
+            <Label>Rs.{orderDetails?.totalAmount}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Payment method</p>
@@ -60,7 +60,7 @@ function ShoppingOrderDetailsView({ orderDetails }) {
                     <li className="flex items-center justify-between">
                       <span>Title: {item.title}</span>
                       <span>Quantity: {item.quantity}</span>
-                      <span>Price: ${item.price}</span>
+                      <span>Price: Rs.{item.price}</span>
                     </li>
                   ))
                 : null}
@@ -74,7 +74,7 @@ function ShoppingOrderDetailsView({ orderDetails }) {
               <span>{user.userName}</span>
               <span>{orderDetails?.addressInfo?.address}</span>
               <span>{orderDetails?.addressInfo?.city}</span>
-              <span>{orderDetails?.addressInfo?.pincode}</span>
+              <span>{orderDetails?.addressInfo?.postalcode}</span>
               <span>{orderDetails?.addressInfo?.phone}</span>
               <span>{orderDetails?.addressInfo?.notes}</span>
             </div>

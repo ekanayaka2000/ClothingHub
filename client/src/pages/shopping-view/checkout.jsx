@@ -67,7 +67,7 @@ function ShoppingCheckout() {
         addressId: currentSelectedAddress?._id,
         address: currentSelectedAddress?.address,
         city: currentSelectedAddress?.city,
-        pincode: currentSelectedAddress?.pincode,
+        postalcode: currentSelectedAddress?.postalcode,
         phone: currentSelectedAddress?.phone,
         notes: currentSelectedAddress?.notes,
       },
@@ -114,7 +114,7 @@ function ShoppingCheckout() {
           <div className="mt-8 space-y-4">
             <div className="flex justify-between">
               <span className="font-bold">Total</span>
-              <span className="font-bold">${totalCartAmount}</span>
+              <span className="font-bold">Rs.{totalCartAmount}</span>
             </div>
           </div>
           <div className="mt-4 w-full">

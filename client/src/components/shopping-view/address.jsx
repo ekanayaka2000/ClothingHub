@@ -5,7 +5,7 @@ import { addressFormControls } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewAddress, deleteAddress, editaAddress, fetchAllAddresses } from "@/store/shop/address-slice";
 import AddressCard from "./address-card";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 
 
@@ -13,7 +13,7 @@ const initialAddressFormData = {
     address: "",
     city: "",
     phone: "",
-    pincode: "",
+    postalcode: "",
     notes: "",
 };
 
@@ -91,7 +91,7 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
             address: getCuurentAddress?.address,
             city: getCuurentAddress?.city,
             phone: getCuurentAddress?.phone,
-            pincode: getCuurentAddress?.pincode,
+            postalcode: getCuurentAddress?.postalcode,
             notes: getCuurentAddress?.notes,
         });
     }
