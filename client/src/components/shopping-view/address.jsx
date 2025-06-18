@@ -13,17 +13,17 @@ const initialAddressFormData = {
     address: "",
     city: "",
     phone: "",
-    postalcode: "",
+    pincode: "",
     notes: "",
 };
 
-function Address() {
-
+function Address({ setCurrentSelectedAddress, selectedId }) {
     const [formData, setFormData] = useState(initialAddressFormData);
     const [currentEditedId, setCurrentEditedId] = useState(null);
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const { addressList } = useSelector((state) => state.shopAddress);
+    const { toast } = useToast();
 
     function handleManageAddress(event) {
         event.preventDefault();
@@ -31,7 +31,7 @@ function Address() {
         if (addressList.length >= 3 && currentEditedId === null) {
             setFormData(initialAddressFormData);
             toast({
-                title: "You can add only 3 addresses",
+                title: "You can add max 3 addresses",
                 variant: "destructive",
             });
 
@@ -55,16 +55,17 @@ function Address() {
                     });
                 }
             })
-            : dispatch(addNewAddress({
-                ...formData,
-                userId: user?.id
-            })).then((data) => {
-                console.log(data);
+            : dispatch(
+                addNewAddress({
+                    ...formData,
+                    userId: user?.id,
+                })
+            ).then((data) => {
                 if (data?.payload?.success) {
                     dispatch(fetchAllAddresses(user?.id));
                     setFormData(initialAddressFormData);
                     toast({
-                        title: "Address updated successfully",
+                        title: "Address added successfully",
                     });
                 }
             });
@@ -90,7 +91,7 @@ function Address() {
             address: getCuurentAddress?.address,
             city: getCuurentAddress?.city,
             phone: getCuurentAddress?.phone,
-            postalcode: getCuurentAddress?.postalcode,
+            pincode: getCuurentAddress?.pincode,
             notes: getCuurentAddress?.notes,
         });
     }
@@ -107,21 +108,20 @@ function Address() {
 
     console.log(addressList, "addressList");
 
-
     return (
         <Card>
-            <div className="mb-5 p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {
-                    addressList && addressList.length > 0 ?
-                        addressList.map((singleAddressItem) =>
-                        (
-                            <AddressCard
-                                handleDeleteAddress={handleDeleteAddress}
-                                addressInfo={singleAddressItem}
-                                handleEditAddress={handleEditAddress}
-                            />
-                        )) : null
-                }
+            <div className="mb-5 p-3 grid grid-cols-1 sm:grid-cols-2  gap-2">
+                {addressList && addressList.length > 0
+                    ? addressList.map((singleAddressItem) => (
+                        <AddressCard
+                            selectedId={selectedId}
+                            handleDeleteAddress={handleDeleteAddress}
+                            addressInfo={singleAddressItem}
+                            handleEditAddress={handleEditAddress}
+                            setCurrentSelectedAddress={setCurrentSelectedAddress}
+                        />
+                    ))
+                    : null}
             </div>
             <CardHeader>
                 <CardTitle>
@@ -137,10 +137,8 @@ function Address() {
                     onSubmit={handleManageAddress}
                     isBtnDisabled={!isFormValid()}
                 />
-
             </CardContent>
         </Card>
-
     );
 }
 

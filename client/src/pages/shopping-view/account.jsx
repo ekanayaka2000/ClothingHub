@@ -1,8 +1,7 @@
-import accImg from "../../assets/account.jpg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import accImg from "../../assets/account.jpg";
 import Address from "@/components/shopping-view/address";
 import ShoppingOrders from "@/components/shopping-view/orders";
-
 
 function ShoppingAccount() {
     return (
@@ -30,7 +29,7 @@ function ShoppingAccount() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default ShoppingAccount;

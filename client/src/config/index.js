@@ -1,5 +1,3 @@
-
-
 export const registerFormControls = [
   {
     name: "userName",
@@ -40,7 +38,6 @@ export const loginFormControls = [
     type: "password",
   },
 ];
-
 
 export const addProductFormElements = [
   {
@@ -111,6 +108,11 @@ export const shoppingViewHeaderMenuItems = [
     path: "/shop/home",
   },
   {
+    id: "products",
+    label: "Products",
+    path: "/shop/listing",
+  },
+  {
     id: "men",
     label: "Men",
     path: "/shop/listing",
@@ -135,6 +137,11 @@ export const shoppingViewHeaderMenuItems = [
     label: "Accessories",
     path: "/shop/listing",
   },
+  {
+    id: "search",
+    label: "Search",
+    path: "/shop/search",
+  },
 ];
 
 export const categoryOptionsMap = {
@@ -154,7 +161,6 @@ export const brandOptionsMap = {
   "h&m": "H&M",
 };
 
-
 export const filterOptions = {
   category: [
     { id: "men", label: "Men" },
@@ -172,7 +178,6 @@ export const filterOptions = {
     { id: "h&m", label: "H&M" },
   ],
 };
-
 
 export const sortOptions = [
   { id: "price-lowtohigh", label: "Price: Low to High" },
@@ -197,11 +202,11 @@ export const addressFormControls = [
     placeholder: "Enter your city",
   },
   {
-    label: "Postal Code",
-    name: "postalcode",
+    label: "Pincode",
+    name: "pincode",
     componentType: "input",
     type: "text",
-    placeholder: "Enter your postalcode",
+    placeholder: "Enter your pincode",
   },
   {
     label: "Phone",
