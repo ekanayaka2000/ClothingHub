@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Airplay, BabyIcon, ChevronLeftIcon, ChevronRightIcon, CloudLightning, Heater, Images, Shirt, ShirtIcon, ShoppingBasket, UmbrellaIcon, WashingMachine, WatchIcon } from "lucide-react";
+import { Airplay, BabyIcon, ChevronLeftIcon, ChevronRightIcon, CloudLightning, Footprints, Heater, Images, Shirt, ShirtIcon, ShoppingBasket, UmbrellaIcon, WashingMachine, WatchIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,13 +10,14 @@ import { useToast } from "@/hooks/use-toast";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImages } from "@/store/common-slice";
+import DressIcon from "@/components/ui/DressIcon";
 
 const categoriesWithIcon = [
     { id: "men", label: "Men", icon: ShirtIcon },
-    { id: "women", label: "Women", icon: CloudLightning },
+    { id: "women", label: "Women", icon: DressIcon },
     { id: "kids", label: "Kids", icon: BabyIcon },
     { id: "accessories", label: "Accessories", icon: WatchIcon },
-    { id: "footwear", label: "Footwear", icon: UmbrellaIcon },
+    { id: "footwear", label: "Footwear", icon: Footprints },
 ];
 
 function ShoppingHome() {
